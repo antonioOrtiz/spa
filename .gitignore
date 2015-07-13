@@ -40,3 +40,13 @@ Thumbs.db
 # sublime text #
 ######################
 spa.sublime-settings
+terminal.glue
+
+# task runner tools #
+######################
+.sass-cache
+*.css.map
+
+# Dependency directory
+node_modules
+
