@@ -47,6 +47,7 @@ terminal.glue
 .sass-cache
 *.css.map
 
-# Dependency directory
+# Dependency directories
 node_modules
+bower_components
 

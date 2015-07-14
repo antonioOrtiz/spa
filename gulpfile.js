@@ -14,6 +14,17 @@ var gulp = require('gulp'),
 
 var browserSync = require('browser-sync').create();
 
+gulp.task('bs-reload', function() {
+    browserSync.reload();
+});
+
+
+ var paths = {
+       scss:'app/scss/style.scss',
+       css: 'app/css',
+       js: 'app/js/*.js',
+       html: 'app/*.html'
+    };
 
 // Static Server + watching scss/html files
 gulp.task('serve', ['sass'], function() {
@@ -22,24 +33,22 @@ gulp.task('serve', ['sass'], function() {
         server: "./app"
     });
 
-    gulp.watch("app/scss/*.scss", ['sass']);
+    gulp.watch("app/scss/style.scss", ['sass']);
     gulp.watch("app/*.html").on('change', browserSync.reload);
 });
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-    return sass("app/scss/style.scss", { sourcemap: true })
-        .on('error', function (err) {
-            console.error('Error!', err.message);
-         })
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest("app/css"))
-        .pipe(browserSync.stream());
+    return sass(paths.scss, {style:'expanded'})
+        .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+        .pipe(gulp.dest(paths.css))
+        .pipe(browserSync.reload({
+            stream: true
+        }))
+        .pipe(notify({ message: 'Styles task complete' }));
 });
 
-
-
-
-
-
 gulp.task('default', ['serve']);
+
+
+
