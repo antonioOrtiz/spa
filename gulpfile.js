@@ -14,38 +14,59 @@ var gulp = require('gulp'),
 
 var browserSync = require('browser-sync').create();
 
-gulp.task('bs-reload', function() {
-    browserSync.reload();
-});
 
 
- var paths = {
+    var paths = {
        scss:'app/scss/style.scss',
        css: 'app/css',
        js: 'app/js/*.js',
+       html: 'app/*.html',
+       publicCss: 'app/public/css',
+       publicJs: 'app/public/js',
        html: 'app/*.html'
     };
 
-// Static Server + watching scss/html files
-gulp.task('serve', ['sass'], function() {
-
-    browserSync.init({
-        server: "./app"
-    });
-
-    gulp.watch("app/scss/style.scss", ['sass']);
-    gulp.watch("app/*.html").on('change', browserSync.reload);
+gulp.task('js',function(){
+    return gulp.src(paths.js)
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
+        .pipe(concat('main.js'))
+        .pipe(gulp.dest(paths.publicJs))
+        .pipe(uglify())
+        .pipe(gulp.dest(paths.publicJs))
+        .pipe(notify({ message: 'Scripts task complete' }));
 });
+
+// create a task that ensures the `js` task is complete before
+// reloading browsers
+gulp.task('js-watch', ['js'], browserSync.reload);
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-    return sass(paths.scss, {style:'expanded'})
+    return sass('app/scss/style.scss', {style:'expanded'})
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        .pipe(gulp.dest(paths.css))
+        .pipe(gulp.dest('app/public/css'))
         .pipe(browserSync.reload({
             stream: true
         }))
         .pipe(notify({ message: 'Styles task complete' }));
+});
+
+// Static Server + watching scss/html files
+// use default task to launch Browsersync and watch JS files
+
+gulp.task('serve', ['sass', 'js'], function() {
+
+    browserSync.init({
+        server: "./app/public"
+    });
+
+
+    // add browserSync.reload to the tasks array to make
+    // all browsers reload after tasks are complete.
+    gulp.watch(paths.scss, ['sass']);
+    gulp.watch(paths.js, ['js']);
+    gulp.watch('app/public/*.html').on('change', browserSync.reload);
 });
 
 gulp.task('default', ['serve']);
