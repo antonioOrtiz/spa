@@ -17,8 +17,7 @@ var browserSync = require('browser-sync').create();
 
 
     var paths = {
-       scss:'app/scss/style.scss',
-       css: 'app/css',
+       scss:'app/scss/main.scss',
        js: 'app/js/*.js',
        html: 'app/*.html',
        publicCss: 'app/public/css',
@@ -30,7 +29,7 @@ gulp.task('js',function(){
     return gulp.src(paths.js)
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
-        .pipe(concat('main.js'))
+        .pipe(concat('app.js'))
         .pipe(gulp.dest(paths.publicJs))
         .pipe(uglify())
         .pipe(gulp.dest(paths.publicJs))
@@ -43,9 +42,9 @@ gulp.task('js-watch', ['js'], browserSync.reload);
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-    return sass('app/scss/style.scss', {style:'expanded'})
+    return sass(paths.scss, {style:'expanded'})
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        .pipe(gulp.dest('app/public/css'))
+        .pipe(gulp.dest(paths.publicCss))
         .pipe(browserSync.reload({
             stream: true
         }))

@@ -40,6 +40,8 @@ Thumbs.db
 # sublime text #
 ######################
 spa.sublime-settings
+spa.sublime-project
+spa.sublime-workspace
 terminal.glue
 
 # task runner tools #

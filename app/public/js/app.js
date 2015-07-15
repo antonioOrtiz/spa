@@ -1,0 +1,1 @@
+!function(){function e(e){if(13===e.keyCode){{document.getElementById("new-do").value}alert("We have a new Todo!")}}function n(){document.getElementById("new-todo").addEventListener("keypress",e,!1)}console.log("im getting frustrated!"),window.addEventListener("load",n,!1)}();
