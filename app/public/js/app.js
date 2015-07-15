@@ -1,1 +1,26 @@
-!function(){function e(e){if(13===e.keyCode){var n=document.getElementById("new-do").value,t=document.getElementById("todo-list");t.innerHTML+="<li>"+n+"</li>",console.log("We have a new Todo!"+n)}}function n(){document.getElementById("new-todo").addEventListener("keypress",e,!1)}console.log("im getting frustrated!"),window.addEventListener("load",n,!1)}();
+(function() {
+
+    console.log('im getting frustrated!');
+
+    window.addEventListener('load', windowHandler, false);
+
+
+    function newTodoKeyPressHandler(e) {
+        if (e.keyCode === 13) {
+        	var todo = document.getElementById('new-do');
+        	var list = document.getElementById('todo-list');
+        	list.innerHTML += ("<li>"+ todo + "</li>");
+
+        }
+    }
+
+    function windowHandler() {
+        document.getElementById('new-todo').addEventListener(
+            'keypress',
+            newTodoKeyPressHandler,
+            false
+        );
+    }
+
+
+})();

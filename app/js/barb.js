@@ -7,10 +7,9 @@
 
     function newTodoKeyPressHandler(e) {
         if (e.keyCode === 13) {
-        	var todo = document.getElementById('new-do').value;
+        	var todo = document.getElementById('new-do');
         	var list = document.getElementById('todo-list');
         	list.innerHTML += ("<li>"+ todo + "</li>");
-            console.log('We have a new Todo!' + todo);
 
         }
     }
