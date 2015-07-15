@@ -30,9 +30,11 @@ gulp.task('js',function(){
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
         .pipe(concat('app.js'))
+        //.pipe(uglify())
         .pipe(gulp.dest(paths.publicJs))
-        .pipe(uglify())
-        .pipe(gulp.dest(paths.publicJs))
+         .pipe(browserSync.reload({
+            stream: true
+        }))
         .pipe(notify({ message: 'Scripts task complete' }));
 });
 
