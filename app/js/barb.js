@@ -6,10 +6,15 @@
 
     function newTodoKeyPressHandler(e) {
         if (e.keyCode === 13) {
-            var todo = document.getElementById('new-todo').value;
-            alert('We have a new Todo!' + todo);
-            var list = document.getElementById('todo-list');
-            list.innerHTML += ("<li>" + todo + "</li>");
+            var todoField = document.getElementById('new-todo').value;
+            alert('We have a new Todo! ' + todoField);
+            var list = document.getElementById('todo-list'), 
+            item = document.createElement('li');
+            item.appendChild(item);
+            item.appendChild(document.createTextNode(todoField.value));
+            todoField.value = '';
+
+            //list.innerHTML += ("<li>" + todo + "</li>");
 
         }
     }
