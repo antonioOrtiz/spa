@@ -44,9 +44,9 @@ gulp.task('js-watch', ['js'], browserSync.reload);
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-    return sass(paths.scss, {style:'expanded'})
+    return sass('app/scss/main.scss', {style:'expanded'})
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        .pipe(gulp.dest(paths.publicCss))
+        .pipe(gulp.dest('app/public/css'))
         .pipe(browserSync.reload({
             stream: true
         }))

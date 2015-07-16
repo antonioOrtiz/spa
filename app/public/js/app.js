@@ -1,37 +1,78 @@
 (function() {
 
-    window.addEventListener('load', windowLoadHandler, false);
+        window.addEventListener('load', windowLoadHandler, false);
 
-    var todoListItems = [];
+        var item = document.createElement('li');
 
-    function redrawList() {
+        // checkbox
 
-        var i;
-        var list = document.getElementById('todo-list');
-        var l = todoListItems.length;
-        list.innerHTML = "";
+        var checkbox = event.target;
+        var index = checkbox.getAttribute('data-todo-id');
+        var todo = todoListItems[index];
+        todo.completed = checkbox.checked;
+        checkbox.className = 'toggle';
+        checkbox.type = 'checkbox';
 
-        for (i = 0; i < l; i++) {
+        checbox.addEventListener('change', checkboxChangeHandler);
+        checkbox.checked = todoListItems[i].completed;
+        checkbox.setAttribute('data-todo-id', i);
 
-            var item = document.createElement('li');
-            item.appendChild(
-                document.createTextNode(todoListItems[i]));
-            list.appendChild(item);
+        function checkboxChangeHandler(e) {
+
         }
+
+        // label
+
+        var label = document.createElement('label');
+        label.appendChild(
+            document.createTextNode(todoListItems[i])
+        );
+
+        //div wrapper
+
+        var divDisplay = document.createElement('div');
+        divDisplay.className = 'view';
+        divDisplay.appendChild(checkbox);
+        divDisplay.appendChild(label);
+        item.appendChild(divDisplay);
+        list.appendChild(item);
+
+        //constructors
+        function TodoItem(title, completed) {
+            this.title = title;
+            this.completed = completed;
+        }
+
+        var todoListItems = [];
+
+        function redrawList() {
+
+            var i;
+            var list = document.getElementById('todo-list');
+            var l = todoListItems.length;
+            list.innerHTML = "";
+
+            for (i = 0; i < l; i++) {
+
+                var item = document.createElement('li');
+                label.appendChild(
+                    document.createTextNode(todoListItems[i].title));
+                    }
     }
-    
+
     function addToList(item) {
-        todoListItems.push(item);
+        var todo = new TodoItem(title, false);
+        todoListItems.push(todo);
         localStorage.setItem('todo-list', JSON.stringify(todoListItems));
     }
 
-    function reloadList(item){
+    function reloadList(item) {
 
-    	var stored = localStorage.getItem('todo-list');
-    		if(stored){
-    			todoListItems = JSON.parse(stored);
-    		}
-    		redrawList();
+        var stored = localStorage.getItem('todo-list');
+        if (stored) {
+            todoListItems = JSON.parse(stored);
+        }
+        redrawList();
     }
 
 
@@ -45,11 +86,11 @@
         }
     }
 
-     window.addEventListener('load', windowLoadHandler, false);
-        function windowLoadHandler() {
-          reloadList();
-          document.getElementById('new-todo').addEventListener('keypress', newTodoKeyPressHandler, false);
-        }
+    window.addEventListener('load', windowLoadHandler, false);
+
+    function windowLoadHandler() {
+        reloadList();
+        document.getElementById('new-todo').addEventListener('keypress', newTodoKeyPressHandler, false);
+    }
 
 }());
-
