@@ -9,7 +9,7 @@
         var i;
         var list = document.getElementById('todo-list');
         var l = todoListItems.length;
-        list.innerHTML = "";
+        list.innerHTML = '';
 
         for (i = 0; i < l; i++) {
 
