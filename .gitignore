@@ -42,6 +42,7 @@ Thumbs.db
 spa.sublime-settings
 spa.sublime-project
 spa.sublime-workspace
+.sublime-gulp.cache
 terminal.glue
 
 # task runner tools #
