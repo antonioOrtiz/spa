@@ -2,6 +2,7 @@
 
 html{background-color:gray;}
 
+@charset "UTF-8";
 
 html,
 body {
@@ -168,7 +169,7 @@ label[for='toggle-all'] {
 }
 
 #toggle-all:before {
-  content: 'Ã‚Â»';
+  content: 'Â»';
   font-size: 28px;
   color: #d9d9d9;
   padding: 0 25px 7px;
@@ -228,7 +229,7 @@ label[for='toggle-all'] {
 }
 
 #todo-list li .toggle:after {
-  content: 'Ã¢Å“â€';
+  content: '✔';
   line-height: 43px; /* 40 + a couple of pixels visual adjustment */
   font-size: 20px;
   color: #d9d9d9;
@@ -289,7 +290,7 @@ label[for='toggle-all'] {
 }
 
 #todo-list li .destroy:after {
-  content: 'Ã¢Å“â€“';
+  content: 'âœ–';
 }
 
 #todo-list li:hover .destroy {
@@ -417,4 +418,3 @@ label[for='toggle-all'] {
 .hidden{
   display:none;
 }
-

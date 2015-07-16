@@ -1,69 +1,81 @@
 (function() {
 
-        window.addEventListener('load', windowLoadHandler, false);
+    window.addEventListener('load', windowLoadHandler, false);
 
-        var item = document.createElement('li');
+    var item = document.createElement('li');
 
-        // checkbox
+    // checkbox
+    //var checkbox = document.createElement('input');
+    var checkbox = event.target;
+    var index = checkbox.getAttribute('data-todo-id');
+    var todo = todoListItems[index];
+    todo.completed = checkbox.checked;
+    //localStorage.setItem('todo-list', JSON.stringify(todoListItems));
+    checkbox.className = 'toggle';
+    checkbox.type = 'checkbox';
 
-        var checkbox = event.target;
-        var index = checkbox.getAttribute('data-todo-id');
-        var todo = todoListItems[index];
-        todo.completed = checkbox.checked;
-        checkbox.className = 'toggle';
-        checkbox.type = 'checkbox';
+    checbox.addEventListener('change', checkboxChangeHandler);
 
-        checbox.addEventListener('change', checkboxChangeHandler);
-        checkbox.checked = todoListItems[i].completed;
-        checkbox.setAttribute('data-todo-id', i);
+    checkbox.checked = todoListItems[i].completed;
+    checkbox.setAttribute('data-todo-id', i);
 
-        function checkboxChangeHandler(e) {
+    function checkboxChangeHandler(e) {
 
+    }
+
+    function migrateData() {
+        var i, l;
+        for (i = 0, l = todoListItems.length; i < l; i++) {
+            item = todoListItems[i];
+            if (typeof(item) === 'string') {
+                todoListItems[i] = new TodoItem(item, false);
+            }
         }
+    }
 
-        // label
+    // label
 
-        var label = document.createElement('label');
-        label.appendChild(
-            document.createTextNode(todoListItems[i])
-        );
+    var label = document.createElement('label');
+    label.appendChild(
+        document.createTextNode(todoListItems[i])
+    );
 
-        //div wrapper
+    //div wrapper
 
-        var divDisplay = document.createElement('div');
-        divDisplay.className = 'view';
-        divDisplay.appendChild(checkbox);
-        divDisplay.appendChild(label);
-        item.appendChild(divDisplay);
-        list.appendChild(item);
+    var divDisplay = document.createElement('div');
+    divDisplay.className = 'view';
+    divDisplay.appendChild(checkbox);
+    divDisplay.appendChild(label);
+    item.appendChild(divDisplay);
+    list.appendChild(item);
 
-        //constructors
-        function TodoItem(title, completed) {
-            this.title = title;
-            this.completed = completed;
+    //constructors
+    function TodoItem(title, completed) {
+        this.title = title;
+        this.completed = completed;
+    }
+
+    var todoListItems = [];
+
+    function redrawList() {
+
+        var i;
+        var list = document.getElementById('todo-list');
+        var l = todoListItems.length;
+        list.innerHTML = "";
+
+        for (i = 0; i < l; i++) {
+
+            var item = document.createElement('li');
+            label.appendChild(
+                document.createTextNode(todoListItems[i].title));
         }
-
-        var todoListItems = [];
-
-        function redrawList() {
-
-            var i;
-            var list = document.getElementById('todo-list');
-            var l = todoListItems.length;
-            list.innerHTML = "";
-
-            for (i = 0; i < l; i++) {
-
-                var item = document.createElement('li');
-                label.appendChild(
-                    document.createTextNode(todoListItems[i].title));
-                    }
     }
 
     function addToList(item) {
         var todo = new TodoItem(title, false);
         todoListItems.push(todo);
-        localStorage.setItem('todo-list', JSON.stringify(todoListItems));
+        //localStorage.setItem('todo-list', JSON.stringify(todoListItems));
     }
 
     function reloadList(item) {
